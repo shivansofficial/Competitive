@@ -9,7 +9,7 @@
 char cray[4] = {'^','>','v','<'}
 int det(char s)
 {
-  int i;
+  int i,j;
   for(i=0;i<4;i++)
   {
     if(cray[i]==s)
