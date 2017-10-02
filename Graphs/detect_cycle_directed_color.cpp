@@ -38,10 +38,46 @@ typedef vector<vd> vvd;
 typedef vector<pii> vii;
 typedef vector<string> vs;
 #define endl '\n'
+enum Color {white,gray,black};
+bool iscyclic(int s,vi adj[],int color[])
+{
+  color[s]=gray;
+  for (int i = 0; i < adj[s].size(); i++)
+  {
+    int curr=adj[s][i];
+    if(color[curr]==gray)
+      return true;
+    if(color[curr]==white && iscyclic(curr,adj,color))
+      return true;
+  }
+  color[s]=black;
+  return false;
+}
 int main()
 {
   ios::sync_with_stdio(false);
   cin.tie(NULL);
-
+  int v,e;
+  cin>>v>>e;
+  vector<int>adj[max];
+  for (int i = 0; i < e; i++)
+  {
+    int x,y;
+    cin>>x>>y;
+    adj[x].push_back(y);
+  }
+  int color[max]={white};
+  for (int i = 0; i <v; i++)
+  {
+    if(color[i]==white)
+      {
+        if(iscyclic(i,adj,color))
+          {
+            cout<<"Cyclic"<<endl;
+            return 0;
+          }
+      }
+  }
+  cout<<"Non cyclic"<<endl;
   return 0;
 }

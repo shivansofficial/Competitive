@@ -38,10 +38,50 @@ typedef vector<vd> vvd;
 typedef vector<pii> vii;
 typedef vector<string> vs;
 #define endl '\n'
+void dfs(int s,vi adj[],bool visited[])
+{
+  visited[s]=true;
+  for (int i = 0; i <adj[s].size(); i++)
+  {
+    int curr=adj[s][i];
+    if(!visited[curr])
+      dfs(curr,adj,visited);
+  }
+}
+bool isSC(vi adj[],vi rev[],bool visited[],int v)
+{
+  dfs(0,adj,visited);
+  for(int i=0;i<v;i++)
+    if(visited[i]==false)
+      return false;
+
+  for (int i = 0; i < v; i++)
+    visited[i]=false;
+
+  dfs(0,rev,visited);
+  for (int i = 0; i < v; i++)
+    if(visited[i]==false)
+      return false;
+
+  return true;
+}
+
 int main()
 {
   ios::sync_with_stdio(false);
   cin.tie(NULL);
-
+  int v,e;
+  cin>>v>>e;
+  bool visited[max]={false};
+  vi adj[max];
+  vi rev[max];
+  for (int i = 0; i < e; i++)
+  {
+    int x,y;
+    cin>>x>>y;
+    adj[x].push_back(y);
+    rev[y].push_back(x);
+  }
+  isSC(adj,rev,visited,v)?cout<<"YES"<<endl:cout<<"NO"<<endl;
   return 0;
 }

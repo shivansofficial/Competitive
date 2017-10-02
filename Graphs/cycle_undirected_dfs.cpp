@@ -38,10 +38,48 @@ typedef vector<vd> vvd;
 typedef vector<pii> vii;
 typedef vector<string> vs;
 #define endl '\n'
+bool iscyclic(int s,vector<int> adj[], bool visited[],int parent)
+{
+  visited[s]=true;
+  for (int i = 0; i <adj[s].size(); i++)
+  { int curr=adj[s][i];
+    if(!visited[curr])
+      {
+        if(iscyclic(curr,adj,visited,s))
+        return true;
+      }
+    else if(curr!=parent)
+      return true;
+  }
+  return false;
+}
+
 int main()
 {
   ios::sync_with_stdio(false);
   cin.tie(NULL);
-
+  int v,e;
+  cin>>v>>e;
+  vector<int> adj[max];
+  bool visited[max]={false};
+  for (int i = 0; i <e; i++)
+  {
+   int x,y;
+   cin>>x>>y;
+   adj[x].push_back(y);
+   adj[y].push_back(x);
+  }
+  for (int i =1; i <=v; i++)
+  {
+   if(!visited[i])
+    {
+      if(iscyclic(i,adj,visited,-1))
+      {
+      cout<<"Cycle"<<endl;
+      return 0;
+      }
+    }
+  }
+  cout<<"No cycle"<<endl;
   return 0;
 }

@@ -38,10 +38,46 @@ typedef vector<vd> vvd;
 typedef vector<pii> vii;
 typedef vector<string> vs;
 #define endl '\n'
+void dfs(int s,vi adj[],bool visited[],stack<int> &st)
+{
+  visited[s]=true;
+  for (int i = 0; i <adj[s].size(); i++)
+  {
+    int curr=adj[s][i];
+    if(!visited[curr])
+      dfs(curr,adj,visited,st);
+  }
+  st.push(s);
+}
+void TS(vi adj[],bool visited[],int v)
+{
+  stack<int> s;
+  for (int i = 0; i <v; i++)
+  {
+    if(!visited[i])
+      dfs(i,adj,visited,s);
+  }
+  while(!s.empty())
+  {
+    cout<<s.top()<<endl;
+    s.pop();
+  }
+}
+
 int main()
 {
   ios::sync_with_stdio(false);
   cin.tie(NULL);
-
+  int v,e;
+  cin>>v>>e;
+  vi adj[max];
+  bool visited[max]={false};
+  for (int i = 0; i <e; i++)
+  {
+    int x ,y;
+    cin>>x>>y;
+    adj[x].push_back(y);
+  }
+  TS(adj,visited,v);
   return 0;
 }

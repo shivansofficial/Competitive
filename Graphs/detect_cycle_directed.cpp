@@ -38,10 +38,38 @@ typedef vector<vd> vvd;
 typedef vector<pii> vii;
 typedef vector<string> vs;
 #define endl '\n'
+int flag=0;
+bool dfs(int s , vector<int> adj[],bool visited[],bool restack[])
+{
+  visited[s]=true;
+  restack[s]=true;
+  for (int i = 0; i < adj[s].size(); i++)
+  {
+    int curr=adj[s][i];
+    if(!visited[curr] && dfs(curr,adj,visited,restack))
+      return true;
+    else if(restack[curr])
+      return true;
+  }
+  restack[s]=false;
+ return false;
+}
 int main()
 {
   ios::sync_with_stdio(false);
   cin.tie(NULL);
+  int v,e;
+  cin>>v>>e;
+  bool visited[max]={false};
+  bool restack[max]={false};
+  vector<int> adj[max];
+  for (int i = 0; i <e; i++)
+  {
+    int x,y;
+    cin>>x>>y;
+    adj[x].push_back(y);
+  }
+  dfs(1,adj,visited,restack)==0?cout<<"NO"<<endl:cout<<"YES"<<endl;
 
   return 0;
 }

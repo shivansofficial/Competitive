@@ -38,10 +38,57 @@ typedef vector<vd> vvd;
 typedef vector<pii> vii;
 typedef vector<string> vs;
 #define endl '\n'
+bool isBipartite(int s,vi adj[],int color[])
+{
+  color[s]=1;
+  queue<int> q;
+  q.push(s);
+  while(!q.empty())
+  {
+    int u=q.front();
+    q.pop();
+    for (int i = 0; i <adj[u].size(); i++)
+    {
+      int curr=adj[u][i];
+      if(color[curr]==-1)
+      {
+        color[curr]=1-color[u];
+        q.push(curr);
+      }
+      else if(color[curr]==color[u])
+        return false;
+    }
+  }
+return true;
+}
+
 int main()
 {
   ios::sync_with_stdio(false);
   cin.tie(NULL);
+  int v,e;
+  cin>>v>>e;
+  vi adj[max];
+  for (int i = 0; i <e; i++)
+  {
+    int x,y;
+    cin>>x>>y;
+    adj[x].push_back(y);
+    adj[y].push_back(x);
+  }
+  int color[max]={-1};
 
+  for (int i = 1; i <=v; i++)
+  {
+    if(color[i]==-1)
+    {
+      if(!isBipartite(i,adj,color))
+        {
+          cout<<"Not Bipartite"<<endl;
+          return 0;
+        }
+    }
+  }
+  cout<<"Bipartite"<<endl;
   return 0;
 }

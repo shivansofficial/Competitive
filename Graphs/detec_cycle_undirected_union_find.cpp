@@ -38,10 +38,61 @@ typedef vector<vd> vvd;
 typedef vector<pii> vii;
 typedef vector<string> vs;
 #define endl '\n'
+int arr[max],size[max];
+int root(int x)
+{
+  while(arr[x]!=x)
+  {
+    arr[x]=arr[arr[x]];
+    x=arr[x];
+  }
+  return x;
+}
+bool find(int x,int y)
+{
+  if(root(x)==root(y))
+    return true;
+  return false;
+}
+void union1(int x,int y)
+{
+  int rootx=root(x);
+  int rooty=root(y);
+  if(size[rootx]<size[rooty])
+  {
+    arr[rootx]=arr[rooty];
+    size[rooty]+=size[rootx];
+  }
+  else
+  { arr[rooty]=arr[rootx];
+    size[rootx]+=size[rooty];
+  }
+}
+
 int main()
 {
   ios::sync_with_stdio(false);
   cin.tie(NULL);
-
+  int n,e;
+  cin>>n>>e;
+  for (int i = 0; i < n ; i++)
+  {
+    arr[i]=i;
+    size[i]=1;
+  }
+  bool flag=false;
+  for (int i = 0; i < e; i++)
+  {
+    int x,y;
+    cin>>x>>y;
+    if(find(x,y))
+       flag=true;
+    else
+      union1(x,y);
+  }
+  if(flag)
+    cout<<"Cycle"<<endl;
+  else
+    cout<<"No Cycle"<<endl;
   return 0;
 }

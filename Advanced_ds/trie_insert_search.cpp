@@ -18,7 +18,6 @@ using namespace std;
 #define pof pop_front
 #define mp make_pair
 #define mod 1000000007
-#define max 100007
 #define itr ::iterator it
 #define gcd(a,b) __gcd((a),(b))
 #define lcm(a,b) ((a)*(b))/gcd((a),(b))
@@ -37,11 +36,67 @@ typedef vector<vl> vvl;
 typedef vector<vd> vvd;
 typedef vector<pii> vii;
 typedef vector<string> vs;
+using namespace std;
 #define endl '\n'
+typedef struct node
+{ node* child[26];
+  bool isleaf;
+}node;
+node*newnode()
+{
+  node*temp=new node;
+  int i;
+  rep(i,26)
+  {
+    temp->child[i]=NULL;
+    temp->isleaf=false;
+  }
+  return temp;
+}
+void insert(node*root,string s)
+{
+  int i;
+  node*temp=root;
+  rep(i,s.length())
+  {
+    int index=s[i]-'a';
+    if(!temp->child[index])
+      temp->child[index]=newnode();
+    temp=temp->child[index];
+  }
+  temp->leaf=true;
+}
+bool search(node*root,string s)
+{
+  int i;
+  node*temp=root;
+  rep(i,s.length())
+  {
+    int index=s[i]-'a';
+    if(!temp->child[index])
+      return false;
+    temp=temp->child[index];
+  }
+  return(temp!=NULL && temp->leaf);
+}
 int main()
 {
   ios::sync_with_stdio(false);
   cin.tie(NULL);
-
+  int n,q,i;
+  cin>>n>>q;
+  node*root=getnode();
+  rep(i,n)
+  {
+    string s;
+    cin>>s;
+    insert(root,s);
+  }
+  rep(i,q)
+  {
+    string s;
+    cin>>s;
+    search(root,s)?cout<<"YES":cout<<"NO"<<endl;
+  }
   return 0;
 }
