@@ -38,10 +38,25 @@ typedef vector<vd> vvd;
 typedef vector<pii> vii;
 typedef vector<string> vs;
 #define endl '\n'
+int max_diff(int arr[],int n)
+{
+  int min_elem=arr[0];
+  int max_diff=arr[1]-arr[0];
+  for (int i = 1; i <n; i++)
+  {
+    if(arr[i]-min_elem>max_diff)
+      max_diff=arr[i]-min_elem;
+    if(arr[i]<min_elem)
+      min_elem=arr[i];
+  }
+  return max_diff;
+}
 int main()
 {
   ios::sync_with_stdio(false);
   cin.tie(NULL);
-  
+  int arr[] = {80, 2, 6, 3, 100};
+  int size = sizeof(arr)/sizeof(arr[0]);
+  cout<<max_diff(arr,size)<<endl;
   return 0;
 }

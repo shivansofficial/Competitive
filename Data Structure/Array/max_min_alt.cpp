@@ -18,7 +18,7 @@ using namespace std;
 #define pof pop_front
 #define mp make_pair
 #define mod 1000000007
-//#define max 100007
+#define max 100007
 #define itr ::iterator it
 #define gcd(a,b) __gcd((a),(b))
 #define lcm(a,b) ((a)*(b))/gcd((a),(b))
@@ -38,10 +38,34 @@ typedef vector<vd> vvd;
 typedef vector<pii> vii;
 typedef vector<string> vs;
 #define endl '\n'
+void max_min(int arr[],int n)
+{
+  int flag=1;
+  int start=0,end=n-1;
+  int temp[n];
+  for (int i = 0; i < n; i++)
+  {
+    if(flag)
+      temp[i]=arr[end--];
+    else
+      temp[i]=arr[start++];
+    flag=!flag;
+  }
+  for (int i = 0; i < n; i++)
+    arr[i]=temp[i];
+}
 int main()
 {
   ios::sync_with_stdio(false);
   cin.tie(NULL);
-  
+  int n;
+  cin>>n;
+  int arr[n];
+  for (int i = 0; i < n; i++)
+    arr[i]=i+1;
+  max_min(arr,n);
+  for (int i = 0; i <n; i++)
+    cout<<arr[i]<<" ";
+  cout<<endl;
   return 0;
 }

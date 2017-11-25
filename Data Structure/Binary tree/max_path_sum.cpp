@@ -38,10 +38,52 @@ typedef vector<vd> vvd;
 typedef vector<pii> vii;
 typedef vector<string> vs;
 #define endl '\n'
+typedef struct node
+{
+  int data;
+  node* left,*right;
+}node;
+node * new_node(int d)
+{
+  node * temp = new node;
+  temp->data=d;
+  temp->left=temp->right=NULL;
+  return temp;
+}
+int max_util(node * root,int &res)
+{
+  if(root==NULL)
+    return 0;
+
+  int l=max_util(root->left,res);
+  int r=max_util(root->right,res);
+  //post order traversal
+  int max_single=max(max(l,r)+root->data,root->data);
+
+  int max_top=max(max_single,l+r+root->data);
+
+  res=max(res,max_top);
+
+  return max_single;
+}
+int findMaxSum(node * root)
+{
+  int res=INT_MIN;
+  max_util(root,res);
+  return res;
+}
 int main()
 {
   ios::sync_with_stdio(false);
   cin.tie(NULL);
-  
+  node *root = new_node(10);
+  root->left        = new_node(2);
+  root->right       = new_node(10);
+  root->left->left  = new_node(20);
+  root->left->right = new_node(1);
+  root->right->right = new_node(-25);
+  root->right->right->left   = new_node(3);
+  root->right->right->right  = new_node(4);
+  cout << "Max path sum is " << findMaxSum(root)<<endl;
   return 0;
 }

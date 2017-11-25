@@ -8,6 +8,7 @@
 #include<set>
 #include<string>
 #include<algorithm>
+#include<list>
 #include<math.h>
 using namespace std;
 #define X first
@@ -38,10 +39,58 @@ typedef vector<vd> vvd;
 typedef vector<pii> vii;
 typedef vector<string> vs;
 #define endl '\n'
+class LRUcache
+{
+  list<int> dq;
+  map<int,list<int>::iterator> hash;
+  int csize;
+
+  public:
+    LRUcache(int);
+    void refer(int);
+    void display();
+};
+LRUcache::LRUcache(int x)
+{
+  csize=x;
+}
+void LRUcache::refer(int x)
+{
+  if(hash.find(x)==hash.end())
+  {
+    if(dq.size()==csize)
+    {
+      int last=dq.back();
+      dq.pop_back();
+      hash.erase(last);
+    }
+  }
+  else
+    dq.erase(hash[x]);
+
+  dq.push_front(x);
+  hash[x]=dq.begin();
+}
+void LRUcache::display()
+{
+  for (list<int>::iterator it=dq.begin(); it!=dq.end(); it++)
+  {
+    cout<<*it<<" ";
+  }
+  cout<<endl;
+}
 int main()
 {
   ios::sync_with_stdio(false);
   cin.tie(NULL);
-  
+  LRUcache ca(4);
+
+  ca.refer(1);
+  ca.refer(2);
+  ca.refer(3);
+  ca.refer(1);
+  ca.refer(4);
+  ca.refer(5);
+  ca.display();
   return 0;
 }

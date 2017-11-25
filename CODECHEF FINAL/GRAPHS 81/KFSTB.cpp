@@ -18,7 +18,7 @@ using namespace std;
 #define pof pop_front
 #define mp make_pair
 #define mod 1000000007
-//#define max 100007
+#define max 100007
 #define itr ::iterator it
 #define gcd(a,b) __gcd((a),(b))
 #define lcm(a,b) ((a)*(b))/gcd((a),(b))
@@ -38,10 +38,47 @@ typedef vector<vd> vvd;
 typedef vector<pii> vii;
 typedef vector<string> vs;
 #define endl '\n'
+
+void path(int s,int t,vi adj[],bool visited[],ll &count)
+{
+  visited[s]=true;
+  if(s==t)
+    {
+    count++;
+    count %= mod;
+    }
+  for (int i = 0; i < adj[s].size(); i++)
+  {
+    int curr=adj[s][i];
+    if(!visited[curr])
+      path(curr,t,adj,visited,count);
+  }
+  visited[s]=false;
+}
+
 int main()
 {
   ios::sync_with_stdio(false);
   cin.tie(NULL);
-  
+  int d;
+  cin>>d;
+  while(d--)
+  {
+    int c,b,s,t;
+    cin>>c>>b>>s>>t;
+    bool visited[max]={false};
+    vi adj[max];
+    for (int i = 0; i < b; i++)
+    {
+      int x,y;
+      cin>>x>>y;
+      adj[x].push_back(y);
+    }
+  ll count=0,flag=0;
+  if(s==t)
+    flag=1;
+  path(s,t,adj,visited,count);
+  flag?cout<<0<<endl:cout<<count  <<endl;
+}
   return 0;
 }

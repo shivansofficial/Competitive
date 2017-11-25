@@ -18,7 +18,7 @@ using namespace std;
 #define pof pop_front
 #define mp make_pair
 #define mod 1000000007
-//#define max 100007
+#define max 100007
 #define itr ::iterator it
 #define gcd(a,b) __gcd((a),(b))
 #define lcm(a,b) ((a)*(b))/gcd((a),(b))
@@ -38,10 +38,60 @@ typedef vector<vd> vvd;
 typedef vector<pii> vii;
 typedef vector<string> vs;
 #define endl '\n'
+typedef struct node
+{
+  int data;
+  node* next;
+}node;
+
+void _append_list(node * head ,int d)
+{
+  while(head->next!=NULL)
+    head=head->next;
+  node * temp=new node;
+  head->next=temp;
+  temp->data=d;
+  temp->next=NULL;
+  cout<<"Appended : "<<d<<endl;
+}
+
+node * init(node * head,int d)
+{
+  head=new node;
+  head->next=NULL;
+  head->data=d;
+  for (int i = 1; i < 15; i++)
+    _append_list(head,i);
+  return head;
+}
+void traverse(node * head)
+{
+  if (head==NULL)
+    cout<<"Empty";
+  else
+    {
+      while(head!=NULL)
+    {
+      cout<<head->data<<" ";
+      head=head->next;
+    }
+    cout<<endl;
+    }
+}
+void ref_del(node * node_ptr)
+{
+  node * temp=node_ptr->next;
+  node_ptr->data=temp->data;
+  node_ptr->next=temp->next;
+  delete temp;
+}
 int main()
 {
   ios::sync_with_stdio(false);
   cin.tie(NULL);
-  
+  node * head=init(head,0);
+  traverse(head);
+  ref_del(head->next->next);
+  traverse(head);
   return 0;
 }

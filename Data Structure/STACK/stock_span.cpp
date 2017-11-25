@@ -18,7 +18,7 @@ using namespace std;
 #define pof pop_front
 #define mp make_pair
 #define mod 1000000007
-//#define max 100007
+#define max 100007
 #define itr ::iterator it
 #define gcd(a,b) __gcd((a),(b))
 #define lcm(a,b) ((a)*(b))/gcd((a),(b))
@@ -38,10 +38,37 @@ typedef vector<vd> vvd;
 typedef vector<pii> vii;
 typedef vector<string> vs;
 #define endl '\n'
+void calculatespan(int p[],int n,int s[])
+{
+  stack<int> st;
+  st.push(0);
+  s[0]=1;
+  for (int i = 1; i < n; i++)
+  {
+    while(!st.empty() && p[st.top()]<=p[i])
+      st.pop();
+
+    s[i]=st.empty()?i+1:i-st.top();
+    st.push(i);
+  }
+}
 int main()
 {
   ios::sync_with_stdio(false);
   cin.tie(NULL);
-  
+  int n;
+  cin>>n;
+  int p[n];
+  for (int i = 0; i < n; i++)
+  {
+    cin>>p[i];
+  }
+  int s[n];
+  calculatespan(p,n,s);
+  for (int i = 0; i < n; i++)
+  {
+    cout<<s[i]<<" ";
+  }
+  cout<<endl;
   return 0;
 }

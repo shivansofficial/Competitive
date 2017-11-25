@@ -38,10 +38,28 @@ typedef vector<vd> vvd;
 typedef vector<pii> vii;
 typedef vector<string> vs;
 #define endl '\n'
+int mycompare(string x,string y)
+{
+  string xy=x.append(y);
+  string yx=y.append(x);
+  return xy.compare(yx)>0?1:0;
+}
+void printLargest(vector<string> arr)
+{
+  sort(arr.begin(),arr.end(),mycompare);
+  for (int i = 0; i < arr.size(); i++)
+    cout<<arr[i];
+}
 int main()
 {
   ios::sync_with_stdio(false);
   cin.tie(NULL);
-  
+  vector<string> arr;
+  arr.push_back("54");
+  arr.push_back("546");
+  arr.push_back("548");
+  arr.push_back("60");
+  printLargest(arr);
+  cout<<endl;
   return 0;
 }

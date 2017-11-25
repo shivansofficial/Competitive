@@ -18,7 +18,7 @@ using namespace std;
 #define pof pop_front
 #define mp make_pair
 #define mod 1000000007
-//#define max 100007
+#define max 100007
 #define itr ::iterator it
 #define gcd(a,b) __gcd((a),(b))
 #define lcm(a,b) ((a)*(b))/gcd((a),(b))
@@ -38,10 +38,55 @@ typedef vector<vd> vvd;
 typedef vector<pii> vii;
 typedef vector<string> vs;
 #define endl '\n'
+void enqueue(char q[],char x,int &rear,int size)
+{
+  if(rear==size)
+    cout<<"Overflow"<<endl;
+  else
+    {
+      q[rear++]=x;
+    }
+}
+void dequeue(char q[],int &front,int rear)
+{
+  if(front==rear)
+    cout<<"Underflow"<<endl;
+  else
+  {
+    q[front++]=0;
+  }
+}
+char Front(char q[],int front)
+{
+  return q[front];
+}
+int size(int front,int rear)
+{
+  return (rear-front);
+}
+bool isempty(int front,int rear)
+{
+  return (front==rear);
+}
 int main()
 {
   ios::sync_with_stdio(false);
   cin.tie(NULL);
-  
+  string s;
+  cin>>s;
+  const int size=50;
+  char q[size];
+  int front=0,rear=0;
+  for (int i = 0; i < s.size(); i++)
+  {
+    enqueue(q,s[i],rear,size);
+  }
+  char f=Front(q,front);
+  cout<<"Front : "<<f<<endl;
+  for (int i = front; i < rear; i++)
+    cout<<q[i]<<endl;
+  dequeue(q,front,rear);
+  for (int i = front; i < rear; i++)
+    cout<<q[i]<<endl;
   return 0;
 }

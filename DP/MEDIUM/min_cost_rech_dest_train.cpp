@@ -38,10 +38,48 @@ typedef vector<vd> vvd;
 typedef vector<pii> vii;
 typedef vector<string> vs;
 #define endl '\n'
+#define n 4
+#define INF INT_MAX
+/*int minCost(int cost[][n],int s,int d)
+{
+  if(s==d||s+1==d)
+    return cost[s][d];
+  int min=cost[s][d];
+  for (int i = s+1; i < d; i++)
+  {
+    int c=minCost(cost,s,i)+minCost(cost,i,d);
+    if(c<min)
+      min=c;
+  }
+  return min;
+}*/
+int minCost(int cost[][n])
+{
+  int dist[n];
+  for (int i = 0; i < n; i++)
+    dist[i]=INF;
+  dist[0]=0;
+
+  for (int i = 0; i <n; i++)
+  {
+    for (int j = i+1; j <n; j++)
+    {
+      if(dist[j]>dist[i]+cost[i][j])
+        dist[j]=dist[i]+cost[i][j];
+    }
+  }
+  return dist[n-1];
+}
 int main()
 {
   ios::sync_with_stdio(false);
   cin.tie(NULL);
-  
+  int cost[n][n]={ {0, 15, 80, 90},
+                      {INF, 0, 40, 50},
+                      {INF, INF, 0, 70},
+                      {INF, INF, INF, 0}
+                    };
+  cout << "The Minimum cost to reach station "
+          << n << " is " << minCost(cost)<<endl;
   return 0;
 }

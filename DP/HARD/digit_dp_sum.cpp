@@ -38,10 +38,57 @@ typedef vector<vd> vvd;
 typedef vector<pii> vii;
 typedef vector<string> vs;
 #define endl '\n'
+long long dp[20][180][2];
+long long get_digits(long long x,vector<int> &digit)
+{
+    while(x)
+    {
+      digit.push_back(x%10);
+      x/=10;
+    }
+}
+long long digit_sum(int idx,int sum,int tight,vector<int>&digit)
+{
+  if(idx==-1)
+    return sum;
+
+  if(dp[idx][sum][tight]!=-1 && tight!=1)
+    return dp[idx][sum][tight];
+
+  long long ret=0;
+
+  int k=tight?digit[idx]:9;
+
+  for (int i = 0; i <=k; i++)
+  {
+    int new_tight=(digit[idx]==i)?tight:0;
+    ret+=digit_sum(idx-1,sum+i,new_tight,digit);
+  }
+  if(!tight)
+    dp[idx][sum][tight]=ret;
+  return ret;
+}
+int rangeDigitSum(int a,int b)
+{
+  memset(dp,-1,sizeof(dp));
+  vector<int> digita;
+  get_digits(a-1,digita);
+
+  long long ans1=digit_sum(digita.size()-1,0,1,digita);
+
+  vector<int> digitb;
+  get_digits(b,digitb);
+
+  long long ans2=digit_sum(digitb.size()-1,0,1,digitb);
+
+  return ans2-ans1;
+
+}
 int main()
 {
   ios::sync_with_stdio(false);
   cin.tie(NULL);
-  
+  long long a = 123, b = 1024;
+  cout << "digit sum for given range : "<< rangeDigitSum(a, b) << endl;
   return 0;
 }

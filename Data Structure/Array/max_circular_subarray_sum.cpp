@@ -38,10 +38,37 @@ typedef vector<vd> vvd;
 typedef vector<pii> vii;
 typedef vector<string> vs;
 #define endl '\n'
+int kadane(int arr[],int n)
+{
+  int max_so_far=0,max_end_here=0;
+  for (int i = 0; i < n; i++)
+  {
+    max_end_here+=arr[i];
+    if(max_end_here<0)
+      max_end_here=0;
+    if(max_so_far<max_end_here)
+      max_so_far=max_end_here;
+  }
+  return max_so_far;
+}
+int maxCircularSum(int arr[],int n)
+{
+  int max_kadane=kadane(arr,n);
+  int tot_sum=0;
+  for (int i = 0; i < n; i++)
+  {
+    tot_sum+=arr[i];
+    arr[i]=-arr[i];
+  }
+  int max_wrap=tot_sum+kadane(arr,n);
+  return max(max_wrap,max_kadane);
+}
 int main()
 {
   ios::sync_with_stdio(false);
   cin.tie(NULL);
-  
+  int a[] =  {11, 10, -20, 5, -3, -5, 8, -13, 10};
+  int n = sizeof(a)/sizeof(a[0]);
+  cout<<"Maximum circular sum is : "<<maxCircularSum(a, n)<<endl;
   return 0;
 }

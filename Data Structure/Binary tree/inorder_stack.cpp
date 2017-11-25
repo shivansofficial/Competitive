@@ -18,7 +18,7 @@ using namespace std;
 #define pof pop_front
 #define mp make_pair
 #define mod 1000000007
-//#define max 100007
+#define max 100007
 #define itr ::iterator it
 #define gcd(a,b) __gcd((a),(b))
 #define lcm(a,b) ((a)*(b))/gcd((a),(b))
@@ -38,10 +38,53 @@ typedef vector<vd> vvd;
 typedef vector<pii> vii;
 typedef vector<string> vs;
 #define endl '\n'
+typedef struct node
+{
+  int data;
+  node * left,* right;
+}node;
+node * new_node(int d)
+{
+  node * temp= new node;
+  temp->data=d;
+  temp->left=temp->right=NULL;
+  return temp;
+}
+void inorder (node * root)
+{
+  node * curr=root;
+  stack<node *>s;
+  bool done =0;
+  while(!done)
+  {
+    if(curr!=NULL)
+    {
+      s.push(curr);
+      curr=curr->left;
+    }
+    else
+    {
+      if(!s.empty())
+      {
+        curr=s.top();
+        s.pop();
+        cout<<curr->data<<" ";
+        curr=curr->right;
+      }
+      else
+        done=1;
+    }
+  }
+}
 int main()
 {
   ios::sync_with_stdio(false);
   cin.tie(NULL);
-  
+  node *root = new_node(1);
+  root->left        = new_node(2);
+  root->right       = new_node(3);
+  root->left->left  = new_node(4);
+  root->left->right = new_node(5);
+  inorder(root);
   return 0;
 }

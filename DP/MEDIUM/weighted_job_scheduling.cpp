@@ -38,10 +38,56 @@ typedef vector<vd> vvd;
 typedef vector<pii> vii;
 typedef vector<string> vs;
 #define endl '\n'
+struct job
+{
+  int s,e,p;
+};
+bool end_time_sort(job s1,job s2)
+{
+  return (s1.e<s2.e);
+}
+int latest_non_conflict(job arr[],int i)
+{
+  int lo=0,hi=i-1;
+  while(lo<=hi)
+  {
+    int mid=(lo+hi)/2;
+    if(arr[mid].e<=arr[i].s)
+    {
+      if(arr[mid+1].e<=arr[i].s)
+        lo=mid+1;
+      else
+        return mid;
+    }
+    else
+      hi=mid-1;
+  }
+  return -1;
+}
+int findMaxProfit(job arr[],int n)
+{
+  sort(arr,arr+n,end_time_sort);
+  int *table=new int[n];
+  table[0]=arr[0].p;
+  for (int i = 1; i < n; i++)
+  {
+    int incl_profit=arr[i].p;
+    int l=latest_non_conflict(arr,i);
+    if(l!=-1)
+      incl_profit+=table[l];
+
+    table[i]=max(incl_profit,table[i-1]);
+  }
+  int result=table[n-1];
+  delete[] table;
+  return result;
+}
 int main()
 {
   ios::sync_with_stdio(false);
   cin.tie(NULL);
-  
+  job arr[] = {{3, 10, 20}, {1, 2, 50}, {6, 19, 100}, {2, 100, 200}};
+  int n = sizeof(arr)/sizeof(arr[0]);
+  cout << "The optimal profit is " << findMaxProfit(arr, n)<<endl;
   return 0;
 }

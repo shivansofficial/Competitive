@@ -18,7 +18,7 @@ using namespace std;
 #define pof pop_front
 #define mp make_pair
 #define mod 1000000007
-//#define max 100007
+#define max 100007
 #define itr ::iterator it
 #define gcd(a,b) __gcd((a),(b))
 #define lcm(a,b) ((a)*(b))/gcd((a),(b))
@@ -38,10 +38,23 @@ typedef vector<vd> vvd;
 typedef vector<pii> vii;
 typedef vector<string> vs;
 #define endl '\n'
+int single(int arr[],int n)
+{
+    int xor2=arr[0];
+    for(int i=1;i<n;i++)
+        xor2^=arr[i];
+
+    return xor2;
+}
 int main()
 {
   ios::sync_with_stdio(false);
   cin.tie(NULL);
-  
+  int n;
+  cin>>n;
+  int arr[n];
+  for (int i = 0; i < n; i++)
+    cin>>arr[i];
+  cout<<single(arr,n)<<endl;
   return 0;
 }

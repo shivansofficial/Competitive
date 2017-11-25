@@ -2,12 +2,12 @@
 using namespace std;
 # define max 100001
 vector<int> city[max];
-long double ans(int v,int p)
+long double dfs(int v,int p)
 { int count=0;
   long double length=0.0;
   for(auto& u:city[v])
   { if(u==p) continue;
-    length+=(1+ans(u,v));
+    length+=(1+dfs(u,v));
     count++;
     }
   return count==0?0.0:length/count;
@@ -22,6 +22,6 @@ int main()
   city[x].push_back(y);
   city[y].push_back(x);
   }
-  cout<<std::setprecision(15)<<ans(1,0)<<endl;
+  cout<<std::setprecision(15)<<dfs(1,0)<<endl;
   return 0;
 }

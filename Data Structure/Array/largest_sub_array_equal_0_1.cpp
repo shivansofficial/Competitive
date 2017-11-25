@@ -38,10 +38,51 @@ typedef vector<vd> vvd;
 typedef vector<pii> vii;
 typedef vector<string> vs;
 #define endl '\n'
+void findSubArray(int arr[],int n)
+{
+  int max_size=-1,start_index;
+  int sum_left[n];
+  int min,max;
+  sum_left[0]=(arr[0]==0?-1:1);
+  min=max=sum_left[0];
+  for (int i = 1; i < n; i++)
+  {
+    sum_left[i]=sum_left[i-1]+(arr[i]==0?-1:1);
+    if(sum_left[i]<min)
+      min=sum_left[i];
+    if(sum_left[i]>max)
+      max=sum_left[i];
+  }
+  vector<int> hash(max-min+1,-1);
+  for (int i = 0; i < n; i++)
+  {
+    if(sum_left[i]==0)
+      {
+        max_size=i+1;
+        start_index=0;
+      }
+    if(hash[sum_left[i]-min]==-1)
+      hash[sum_left[i]-min]=i;
+    else
+    {
+      if(i-hash[sum_left[i]-min]>max_size)
+        {
+          max_size=i-hash[sum_left[i]-min];
+          start_index=hash[sum_left[i]-min]+1;
+        }
+    }
+  }
+  if(max_size==-1)
+    cout<<"No such subarray"<<endl;
+  else
+    cout<<"Length : "<<max_size<<" Index : "<< start_index <<" to "<<start_index+max_size-1<<endl;
+}
 int main()
 {
   ios::sync_with_stdio(false);
   cin.tie(NULL);
-  
+  int arr[] =  {1, 0, 0, 1, 0, 1, 1};
+  int size = sizeof(arr)/sizeof(arr[0]);
+  findSubArray(arr, size);
   return 0;
 }

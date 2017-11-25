@@ -42,6 +42,46 @@ int main()
 {
   ios::sync_with_stdio(false);
   cin.tie(NULL);
-  
-  return 0;
+  int t;
+  cin>>t;
+  while(t--)
+  {
+    string v;
+    cin>>v;
+    int a=0,b=0,d=0;
+    stack<char> s;
+    for (int i = 0; i < v.size(); i++)
+      s.push(v[i]);
+    int flag= -1;
+    while(!s.empty())
+    {
+      char p=s.top();
+      s.pop();
+      if(p=='.')
+        d++;
+      if(p=='A')
+      {
+        a++;
+        if(flag==0)
+        {
+          a+=d;
+        }
+        d=0;
+        flag=0;
+      }
+      if(p=='B')
+      {
+        b++;
+        if(flag==1)
+        {
+          b+=d;
+        }
+        d=0;
+        flag=1;
+      }
+    }
+    cout<<a<<" "<<b<<endl;
+
+}
+return 0;
 }

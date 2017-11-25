@@ -38,10 +38,25 @@ typedef vector<vd> vvd;
 typedef vector<pii> vii;
 typedef vector<string> vs;
 #define endl '\n'
+int maxSubarrayProduct(int arr[],int n)
+{
+  int r=arr[0];
+  for (int i = 1,imax=r,imin=r; i < n; i++)
+  {
+    if(arr[i]<0)
+      swap(imax,imin);
+    imax=max(arr[i],imax*arr[i]);
+    imin=min(arr[i],imin*arr[i]);
+    r=max(r,imax);
+  }
+  return r;
+}
 int main()
 {
   ios::sync_with_stdio(false);
   cin.tie(NULL);
-  
+  int arr[] = {1, -2, -3, 0, 7, -8, -2};
+  int n = sizeof(arr)/sizeof(arr[0]);
+  cout<<"Maximum Sub array product is "<<maxSubarrayProduct(arr, n)<<endl;
   return 0;
 }

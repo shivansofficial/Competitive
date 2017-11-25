@@ -38,10 +38,50 @@ typedef vector<vd> vvd;
 typedef vector<pii> vii;
 typedef vector<string> vs;
 #define endl '\n'
+#define R 4
+#define C 4
+int countPaths(int arr[][C])
+{
+  if(arr[0][0]==-1)
+    return 0;
+  for (int i = 0; i < R; i++)
+  {
+    if(arr[i][0]==0)
+      arr[i][0]=1;
+    else
+      break;
+  }
+  for (int j= 1; j<C; j++)
+  {
+    if(arr[0][j]==0)
+      arr[0][j]=1;
+    else
+        break;
+  }
+  for (int i = 1; i < R; i++)
+  {
+    for (int j = 1; j < C; j++)
+    {
+      if(arr[i][j]==-1)
+        continue;
+
+      if(arr[i-1][j]>0)
+        arr[i][j]+=arr[i-1][j];
+
+      if(arr[i][j-1]>0)
+        arr[i][j]+=arr[i][j-1];
+    }
+  }
+  return (arr[R-1][C-1]>0)?arr[R-1][C-1]:0;
+}
 int main()
 {
   ios::sync_with_stdio(false);
   cin.tie(NULL);
-  
+  int maze[R][C] =  { {0,  0, 0, 0},
+                       {0, -1, 0, 0},
+                       {-1, 0, 0, 0},
+                       {0,  0, 0, 0}};
+  cout << countPaths(maze)<<endl;
   return 0;
 }

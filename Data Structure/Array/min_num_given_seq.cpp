@@ -38,10 +38,34 @@ typedef vector<vd> vvd;
 typedef vector<pii> vii;
 typedef vector<string> vs;
 #define endl '\n'
+void PrintMinNumberForPattern(string seq)
+{
+  string res;
+  stack<int> s;
+  for (int i = 0; i <=seq.length(); i++)
+  {
+    s.push(i+1);
+    if(i==seq.length()||seq[i]=='I')
+    {
+      while(!s.empty())
+      {
+        res+=to_string(s.top());
+        s.pop();
+      }
+    }
+  }
+  cout<<res<<endl;
+}
 int main()
 {
   ios::sync_with_stdio(false);
   cin.tie(NULL);
-  
+  PrintMinNumberForPattern("IDID");
+  PrintMinNumberForPattern("I");
+  PrintMinNumberForPattern("DD");
+  PrintMinNumberForPattern("II");
+  PrintMinNumberForPattern("DIDI");
+  PrintMinNumberForPattern("IIDDD");
+  PrintMinNumberForPattern("DDIDDIID");
   return 0;
 }

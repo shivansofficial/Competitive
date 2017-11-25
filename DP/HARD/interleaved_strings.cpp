@@ -38,10 +38,45 @@ typedef vector<vd> vvd;
 typedef vector<pii> vii;
 typedef vector<string> vs;
 #define endl '\n'
+bool is_interleaved(string a,string b,string c)
+{
+  int m=a.size();
+  int n=b.size();
+  bool dp[m+1][n+1];
+  memset(dp,false,sizeof(dp));
+  if(m+n!=c.size())
+    return false;
+  for(int i=0;i<=m;i++)
+  {
+    for(int j=0;j<=n;j++)
+    {
+      if(i==0 && j==0)
+        dp[i][j]=true;
+
+      else if(i==0 && b[j-1]==c[j-1])
+        dp[i][j]=dp[i][j-1];
+
+      else if(j==0 && a[i-1]==c[i-1])
+        dp[i][j]=dp[i-1][j];
+
+      else if(a[i-1]==c[i+j-1] && b[j-1]!=c[i+j-1])
+        dp[i][j]=dp[i-1][j];
+
+      else if(a[i-1]!=c[i+j-1] && b[j-1]==c[i+j-1])
+        dp[i][j]=dp[i][j-1];
+
+      else if(a[i-1]==c[i+j-1] && b[j-1]==c[i+j-1])
+        dp[i][j]=dp[i-1][j]||dp[i][j-1];
+    }
+  }
+  return dp[m][n];
+}
 int main()
 {
   ios::sync_with_stdio(false);
   cin.tie(NULL);
-  
+  string a,b,c;
+  cin>>a>>b>>c;
+  is_interleaved(a,b,c)?cout<<"YES"<<endl:cout<<"NO"<<endl;
   return 0;
 }

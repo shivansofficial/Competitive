@@ -38,10 +38,46 @@ typedef vector<vd> vvd;
 typedef vector<pii> vii;
 typedef vector<string> vs;
 #define endl '\n'
+int longest_sub_array(string s)
+{
+  int n=s.length();
+  int cur_len=1;
+  int max_len=1;
+  int prev_index;
+  int *visited=new int[256];
+
+  for (int i = 0; i < 256; i++)
+    visited[i]=-1;
+
+  visited[s[0]]=0;
+
+  for (int i = 1; i <s.length(); i++)
+  {
+    prev_index=visited[s[i]];
+
+    if(prev_index==-1||i-cur_len>prev_index)
+      cur_len++;
+    else
+    {
+      if(cur_len>max_len)
+        max_len=cur_len;
+
+      cur_len=i-prev_index;
+    }
+    visited[s[i]]=i;
+  }
+  if(cur_len>max_len)
+    max_len=cur_len;
+  delete[] visited;
+  return max_len;
+}
 int main()
 {
   ios::sync_with_stdio(false);
   cin.tie(NULL);
-  
+  string s;
+  cin>>s;
+  cout<<s<<endl;
+  cout<<"Length of longest non-repeating substring :"<<longest_sub_array(s)<<endl;
   return 0;
 }

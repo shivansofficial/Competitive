@@ -18,7 +18,7 @@ using namespace std;
 #define pof pop_front
 #define mp make_pair
 #define mod 1000000007
-//#define max 100007
+#define max 100007
 #define itr ::iterator it
 #define gcd(a,b) __gcd((a),(b))
 #define lcm(a,b) ((a)*(b))/gcd((a),(b))
@@ -42,6 +42,30 @@ int main()
 {
   ios::sync_with_stdio(false);
   cin.tie(NULL);
-  
+  int t;
+  cin>>t;
+  while(t--)
+  {
+    int n,i;
+    int pin=0;
+    cin>>n;
+    int a[n];
+    rep(i,n)
+    {
+      cin>>a[i];
+    }
+    int m;
+
+    if(a[n/2]==7)
+    {
+      rep(i,n/2)
+      {
+        if(a[i]==a[n-i-1])
+          pin++;
+      }
+    }
+
+    (pin==n/2)?cout<<"yes"<<endl:cout<<"no"<<endl;
+  }
   return 0;
 }

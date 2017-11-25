@@ -38,10 +38,42 @@ typedef vector<vd> vvd;
 typedef vector<pii> vii;
 typedef vector<string> vs;
 #define endl '\n'
+int getMaxArea(int a[],int n)
+{
+  stack<int>s;
+  int max_area=INT_MIN;
+  int tp;
+  int area_top;
+  int i=0;
+  while(i<n)
+  {
+    if(s.empty()||a[s.top()]<a[i])
+      s.push(i++);
+    else
+    {
+      tp=s.top();
+      s.pop();
+      area_top=a[tp]*(s.empty()?i:i-s.top()-1);
+      if(max_area<area_top)
+        max_area=area_top;
+    }
+  }
+  while(!s.empty())
+  {
+    tp=s.top();
+    s.pop();
+    area_top=a[tp]*(s.empty()?i:i-s.top()-1);
+    if(max_area<area_top)
+      max_area=area_top;
+  }
+  return max_area;
+}
 int main()
 {
   ios::sync_with_stdio(false);
   cin.tie(NULL);
-  
+  int hist[] = {1,4,3,2,5,4};
+  int n = sizeof(hist)/sizeof(hist[0]);
+  cout << "Maximum area is " << getMaxArea(hist, n)<<endl;
   return 0;
 }

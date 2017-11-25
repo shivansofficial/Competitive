@@ -18,7 +18,7 @@ using namespace std;
 #define pof pop_front
 #define mp make_pair
 #define mod 1000000007
-//#define max 100007
+#define max 100007
 #define itr ::iterator it
 #define gcd(a,b) __gcd((a),(b))
 #define lcm(a,b) ((a)*(b))/gcd((a),(b))
@@ -38,10 +38,34 @@ typedef vector<vd> vvd;
 typedef vector<pii> vii;
 typedef vector<string> vs;
 #define endl '\n'
+void rev(int arr[],int s,int e)
+{
+  int temp;
+  while(s<e)
+  {
+    temp=arr[s];
+    arr[s]=arr[e];
+    arr[e]=temp;
+    s++,e--;
+  }
+}
+void left_rotate(int arr[],int d,int n)
+{
+  if(d>n)
+    d%=n;
+  rev(arr,0,d-1);
+  rev(arr,d,n-1);
+  rev(arr,0,n-1);
+}
+
 int main()
 {
   ios::sync_with_stdio(false);
   cin.tie(NULL);
-  
+  int arr[]={1,2,3,4,5,6,7};
+  left_rotate(arr,2,7);
+  for (int i = 0; i < 7; i++)
+    cout<<arr[i]<<" ";
+  cout<<endl;
   return 0;
 }

@@ -38,10 +38,32 @@ typedef vector<vd> vvd;
 typedef vector<pii> vii;
 typedef vector<string> vs;
 #define endl '\n'
+int lcs(string a,string b)
+{
+  int n=a.size();
+  int lcs[n+1][n+1];
+  for (int i = 0; i <=n; i++)
+  {
+    for (int j = 0; j <= n; j++)
+    {
+      if(i==0||j==0)
+        lcs[i][j]=0;
+      else if(a[i-1]==b[j-1])
+        lcs[i][j]=lcs[i-1][j-1]+1;
+      else
+        lcs[i][j]=max(lcs[i-1][j],lcs[i][j-1]);
+    }
+  }
+  return lcs[n][n];
+}
 int main()
 {
   ios::sync_with_stdio(false);
   cin.tie(NULL);
-  
+  string str;
+  cin>>str;
+  string rev=str;
+  reverse(rev.begin(),rev.end());
+  cout<< str.size()-lcs(str,rev)<<endl;
   return 0;
 }

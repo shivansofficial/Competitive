@@ -42,6 +42,51 @@ int main()
 {
   ios::sync_with_stdio(false);
   cin.tie(NULL);
-  
+  int t;
+  cin>>t;
+  while(t--)
+  {
+
+    string s;
+    string a="ab";
+    int n,p;
+    int flag=-1;
+    cin>>n>>p;
+    while(p>4 && p%2==0)
+    {
+      p/=2;
+    }
+    if(n<=2||p<=2)
+      cout<<"impossible"<<endl;
+    else if(n%p!=0)
+      cout<<"impossible"<<endl;
+    else if(p%2==0)
+    {
+      for (int  i = 0; i < p/2; i++)
+      {
+        s+=a;
+        reverse(a.begin(),a.end());
+      }
+      flag=0;
+    }
+    else if(p%2==1)
+    {
+      for (int i = 0; i < p/2; i++)
+      {
+        s+=a;
+      }
+      s+="a";
+      flag=0;
+    }
+
+    if(flag==0)
+    {
+        for(int i=0;i<n/p;i++)
+      {
+        cout<<s;
+      }
+        cout<<endl;
+    }
+  }
   return 0;
 }
