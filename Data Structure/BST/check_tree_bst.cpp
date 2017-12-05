@@ -50,13 +50,15 @@ node * new_node(int d)
   temp->left=temp->right=NULL;
   return temp;
 }
-int is_bst(node * root,int min,int max)
+int is_bst(node * root,node * mini=NULL,node * maxi=NULL)
 {
   if(!root)
     return 1;
-  if(root->data<min || root->data>max)
+  if(mini!=NULL && root->data<mini->data)
     return 0;
-  return (is_bst(root->left,min,root->data-1)&&is_bst(root->right,root->data+1,max));
+  if(maxi!=NULL && root->data > maxi->data)
+    return 0;
+  return (is_bst(root->left,mini,root)&&is_bst(root->right,root,maxi));
 }
 int main()
 {
@@ -68,6 +70,6 @@ int main()
   root->left->left  = new_node(1);
   root->left->right = new_node(3);
 
-  is_bst(root,INT_MIN,INT_MAX)?cout<<"Yes"<<endl:cout<<"No"<<endl;
+  is_bst(root)?cout<<"Yes"<<endl:cout<<"No"<<endl;
   return 0;
 }

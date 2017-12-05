@@ -38,7 +38,7 @@ typedef vector<vd> vvd;
 typedef vector<pii> vii;
 typedef vector<string> vs;
 #define endl '\n'
-/*int maxProfit(int p[],int n,int k)
+int maxProfit(int p[],int n,int k)
 {
   int profit[k+1][n];
   for (int i = 0; i <n; i++)
@@ -58,8 +58,8 @@ typedef vector<string> vs;
     }
   }
   return profit[k][n-1];
-}*/
-int maxProfit(int p[],int n,int k)
+}
+/*int maxProfit(int p[],int n,int k)
 {
   int profit[k+1][n];
   for (int i = 0; i <n; i++)
@@ -76,7 +76,7 @@ int maxProfit(int p[],int n,int k)
       }
     }
       return profit[k][n-1];
-}
+}*/
 int main()
 {
   ios::sync_with_stdio(false);
