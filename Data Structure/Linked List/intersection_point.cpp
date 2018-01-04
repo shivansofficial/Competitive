@@ -90,12 +90,14 @@ node * _inter_node(int d,node * a,node * b)
   {
     a=a->next;
   }
-  while(a!=NULL && b!=NULL && a==b)
+  while(a!=NULL && b!=NULL )
   {
+    if(a==b)
+      return a;
     a=a->next;
     b=b->next;
   }
-  return a;
+  return NULL;
 }
 
 node * intersection(node * a,node *b)
@@ -105,7 +107,7 @@ node * intersection(node * a,node *b)
   int d;
   if(c1>c2)
   {
-    d=c1=c2;
+    d=c1-c2;
     return _inter_node(d,a,b);
   }
   else
@@ -122,7 +124,7 @@ int main()
   node * head1=init(head1,0);
   traverse(head1);
   node * head2=init(head2,34);
-  head2->next->next=head1->next->next->next->next->next;
+  head2->next->next=head1->next;
   traverse(head2);
   node * inter=intersection(head1,head2);
   cout<<inter->data<<endl;

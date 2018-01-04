@@ -93,7 +93,7 @@ node * merge(node * a,node *b)
 }
 pair<node*,node*>split(node * head,node * a,node * b)
 {
-  node*fast=head,*slow=head,*prev_slow;
+  node*fast=head->next,*slow=head;
   if(head==NULL||head->next==NULL)
   {
     a=head;
@@ -103,14 +103,11 @@ pair<node*,node*>split(node * head,node * a,node * b)
   {
     while(fast!=NULL && fast->next!=NULL)
     {
-      prev_slow=slow;
+
       slow=slow->next;
       fast=fast->next->next;
     }
-    if(fast==NULL)
-    {
-      slow=prev_slow;
-    }
+
     a=head;
     b=slow->next;
     slow->next=NULL;

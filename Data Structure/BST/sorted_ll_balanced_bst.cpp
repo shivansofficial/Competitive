@@ -42,13 +42,13 @@ void print_list(lnode * head)
 }
 void pre(tnode * root)
 {
-  if(!root)
+  if(root==NULL)
     return;
   cout<<root->data<<" ";
   pre(root->left);
   pre(root->right);
 }
-tnode * sorted_list_to_bst(lnode ** head,int n)
+tnode * sorted_list_to_bst(lnode **head,int n)
 {
   if(n<=0)
     return NULL;

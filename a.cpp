@@ -9,6 +9,7 @@
 #include<string>
 #include<algorithm>
 #include<math.h>
+#include<sstream>
 using namespace std;
 #define X first
 #define Y second
@@ -38,3 +39,30 @@ typedef vector<vd> vvd;
 typedef vector<pii> vii;
 typedef vector<string> vs;
 #define endl '\n'
+class A
+{
+public:
+   virtual void f()
+  {
+    cout<< "Bauns"<<endl;
+  }
+};
+class B:public A
+{
+public:
+  void f()
+  {
+    cout<<"Lulz"<<endl;
+  }
+};
+
+void g(A &arg)
+{
+  arg.f();
+}
+int main()
+{
+    B x;
+    g(x);
+    return 0;
+}

@@ -17,7 +17,7 @@ int knapsack(int wt[],int W , int val[],int n)
     dp[i][0]=0;
     for (int w = 1; w <=W; w++) {
       dp[0][w]=0;
-      if(W<wt[n-1])
+      if(w<wt[i-1])
         dp[i][w]=dp[i-1][w];
       else
         dp[i][w] = max(val[i-1] + dp[i-1][w-wt[i-1]] , dp[i-1][w]);
@@ -29,9 +29,9 @@ int main()
 {
    ios::sync_with_stdio(false);
    cin.tie(NULL);
-   int val[] = {60, 100, 120};
-   int wt[] = {10, 20, 30};
-   int  W = 50;
+   int val[] = {1, 2, 3};
+   int wt[] = {4, 5, 1};
+   int  W = 4;
    int n = sizeof(val)/sizeof(val[0]);
    cout<<knapsack(wt,W,val,n)<<endl;
    return 0;

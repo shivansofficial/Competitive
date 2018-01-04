@@ -18,7 +18,7 @@ using namespace std;
 #define pof pop_front
 #define mp make_pair
 #define mod 1000000007
-#define max 100007
+//#define max 100007
 #define itr ::iterator it
 #define gcd(a,b) __gcd((a),(b))
 #define lcm(a,b) ((a)*(b))/gcd((a),(b))
@@ -38,46 +38,33 @@ typedef vector<vd> vvd;
 typedef vector<pii> vii;
 typedef vector<string> vs;
 #define endl '\n'
-void dfs(int s,vi adj[],bool visited[],stack<int> &st)
+int fact(int n)
 {
-  visited[s]=true;
-  for (int i = 0; i <adj[s].size(); i++)
-  {
-    int curr=adj[s][i];
-    if(!visited[curr])
-      dfs(curr,adj,visited,st);
-  }
-  st.push(s);
+  return n<=1?1:n*fact(n-1);
 }
-void TS(vi adj[],bool visited[],int v)
+int countsmall(string s,int low, int high )
+{ int count=0;
+  for (int i = low+1; i <=high; i++) {
+    if(s[low]>s[i]) count++;
+  }
+  return count;
+}
+int findrank(string s)
 {
-  stack<int> s;
-  for (int i = 0; i <v; i++)
+  int length=s.size();
+  int mul=fact(length);
+  int rank=1;
+  for(int i=0;i<length;i++)
   {
-    if(!visited[i])
-      dfs(i,adj,visited,s);
+    mul/=(length-i);
+    rank+=countsmall(s,i,length-1)*mul;
   }
-  while(!s.empty())
-  {
-    cout<<s.top()<<endl;
-    s.pop();
-  }
+  return rank;
 }
-
 int main()
-{
-  ios::sync_with_stdio(false);
+{ ios::sync_with_stdio(false);
   cin.tie(NULL);
-  int v,e;
-  cin>>v>>e;
-  vector<int> adj[max];
-  bool visited[max]={false};
-  for (int i = 0; i <e; i++)
-  {
-    int x ,y;
-    cin>>x>>y;
-    adj[x].push_back(y);
-  }
-  TS(adj,visited,v);
+  string s="string";
+  cout<<findrank(s)<<endl;
   return 0;
 }
